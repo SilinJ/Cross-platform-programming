@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Заметки и управление временем</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="container py-3">
+    <h1 class="text-center mb-3">Заметки</h1>
+    <div id="notes" class="row"></div>
+    <textarea id="newNote" class="form-control my-3" rows="3" placeholder="Новая заметка..."></textarea>
+    <button onclick="addNote()" class="btn btn-primary mb-3">Добавить заметку</button>
+    <h1 class="text-center mb-3">Таймер</h1>
+    <div class="d-flex justify-content-center mb-3">
+        <button onclick="startTimer()" class="btn btn-success mr-2">Старт</button>
+        <button onclick="stopTimer()" class="btn btn-danger">Стоп</button>
+    </div>
+    <div id="timer" class="text-center h3">0</div>
+    <script>
+        var notes = [];
+        var timer = null;
+        var time = 0;
+
+        function addNote() {
+            var noteText = document.getElementById('newNote').value;
+            notes.push(noteText);
+            document.getElementById('newNote').value = '';
+            displayNotes();
+        }
+
+        function displayNotes() {
+            var notesHtml = notes.map(function(note) {
+                return '<div class="col-12 col-md-6 col-lg-4 mb-3"><div class="card p-3">' + note + '</div></div>';
+            }).join('');
+            document.getElementById('notes').innerHTML = notesHtml;
+        }
+
+        function startTimer() {
+            timer = setInterval(function() {
+                time++;
+                document.getElementById('timer').textContent = time;
+            }, 1000);
+        }
+
+        function stopTimer() {
+            clearInterval(timer);
+        }
+    </script>
+</body>
+</html>
